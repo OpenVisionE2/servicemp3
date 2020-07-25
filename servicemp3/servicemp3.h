@@ -149,6 +149,7 @@ public:
 	RESULT frontendInfo(ePtr<iFrontendInformation> &ptr) { ptr = 0; return -1; }
 	RESULT subServices(ePtr<iSubserviceList> &ptr) { ptr = 0; return -1; }
 	RESULT timeshift(ePtr<iTimeshiftService> &ptr) { ptr = 0; return -1; }
+	RESULT tap(ePtr<iTapService> &ptr) { ptr = nullptr; return -1; };
 //	RESULT cueSheet(ePtr<iCueSheet> &ptr) { ptr = 0; return -1; }
 
 		// iCueSheet
@@ -210,10 +211,6 @@ public:
 	void setAC3Delay(int);
 	void setPCMDelay(int);
 
-#if HAVE_AMLOGIC
-	void AmlSwitchAudio(int index);
-	unsigned int get_pts_pcrscr(void);
-#endif
 	struct audioStream
 	{
 		GstPad* pad;
