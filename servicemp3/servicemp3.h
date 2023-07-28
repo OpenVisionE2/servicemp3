@@ -231,6 +231,7 @@ public:
 		GstPad* pad;
 		subtype_t type;
 		std::string language_code; /* iso-639, if available. */
+		std::string title;
 		subtitleStream()
 			:pad(0)
 		{
@@ -398,6 +399,10 @@ private:
 	std::string m_extra_headers;
 	RESULT trickSeek(gdouble ratio);
 	ePtr<iTSMPEGDecoder> m_decoder; // for showSinglePic when radio
+
+	std::string m_external_subtitle_path;
+	std::string m_external_subtitle_language;
+	std::string m_external_subtitle_extension;
 };
 
 #endif
