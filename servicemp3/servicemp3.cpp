@@ -221,6 +221,15 @@ RESULT eMP3ServiceOfflineOperations::getListOfFilenames(std::list<std::string> &
 {
 	res.clear();
 	res.push_back(m_ref.path);
+	res.push_back(m_ref.path + ".meta");
+	res.push_back(m_ref.path + ".cuts");
+	std::string filename = m_ref.path;
+	size_t pos;
+	if ( (pos = filename.rfind('.')) != std::string::npos)
+	{
+		filename.erase(pos + 1);
+		res.push_back(filename + ".eit");
+	}
 	return 0;
 }
 
@@ -258,6 +267,10 @@ RESULT eStaticServiceMP3Info::getName(const eServiceReference &ref, std::string 
 		name = ref.name;
 	else
 	{
+		if (endsWith(ref.path, ".stream") && !m_parser.parseMeta(ref.path)) {
+			name = m_parser.m_name;
+			return 0;
+		}
 		size_t last = ref.path.rfind('/');
 		if (last != std::string::npos)
 			name = ref.path.substr(last+1);
